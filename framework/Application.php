@@ -7,11 +7,15 @@
  */
 
 namespace framework;
+use framework\modules\Response;
+use framework\modules\Router;
 
 /**
  * Class Application
  * @package framework
  * @property array $params
+ * @property Router $router
+ * @property Response response
  */
 class Application {
 
@@ -34,20 +38,21 @@ class Application {
             return $this->{'_'.$name} = $this->{'get'.ucfirst($name)};
         if(Core::moduleExists($name))
             return $this->{'_'.$name} = Core::getModule($name);
-        throw new Exception("Can't get method", 500);
+        throw new Exception("Can't get method", Core::EXCEPTION_ERROR_CODE);
     }
 
     private function init(Config $config)
     {
         Core::$config = $config;
-        $this->params = $config->params;
+        $this->params = $config->getParams();
         $this->config = $config;
     }
 
     public function run()
     {
         try{
-            $this->handleRequest($this->getRequest());
+            $result = $this->handleRequest($this->getRequest());
+            $this->response->perform($result);
         } catch(Exception $e) {
 
         }
@@ -57,9 +62,21 @@ class Application {
     {
         return new Request();
     }
-    public function handleRequest(Request $request)
-    {
 
+    public function handleRequest()
+    {
+        $controller = $this->getController($this->router->controller);
+        return $controller->runAction($this->router->action);
+    }
+
+    /**
+     * @param $controller
+     *
+     * @return Controller
+     */
+    private function getController($controller)
+    {
+        return new Controller();
     }
 
 

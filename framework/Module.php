@@ -11,6 +11,8 @@ namespace framework;
 
 abstract class Module {
 
+    /** @var array  */
+    protected $_config;
     /**
      * @param array $config
      */
