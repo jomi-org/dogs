@@ -9,15 +9,62 @@
 namespace framework\modules;
 
 
+use framework\Core;
+use framework\Exception;
 use framework\Module;
 
 class Request extends Module{
 
+    /** @var   */
+    public $uri;
+    public $get = array();
+    public $post = array();
     /**
      * @return static
      */
     public function init()
     {
-        // TODO: Implement init() method.
+        $this->uri = $this->getUri();
+        if(!empty($_GET))
+            $this->get = $_GET;
+        if(!empty($_POST))
+            $this->post = $_POST;
+        unset($_GET);
+        unset($_POST);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUri()
+    {
+        if(isset($_SERVER['REQUEST_URI']))
+            return $_SERVER['REQUEST_URI'];
+        return '';
+    }
+
+    /**
+     * @param $actionArgs
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function getActionParams($actionArgs)
+    {
+        $args = array();
+        /** @var  \ReflectionParameter[] $actionArgs */
+        foreach($actionArgs as $param)
+        {
+            $argName = $param->getName();
+            if(!empty($this->get[$argName]))
+                $args[] = $this->get[$argName];
+            elseif(!empty($this->post[$argName]))
+                $args[] = $this->post[$argName];
+            elseif($param->isDefaultValueAvailable())
+                $args[] = $param->getDefaultValue();
+            else
+                throw new Exception("Can't get action param:".$argName,Core::EXCEPTION_ERROR_CODE);
+        }
+        return $args;
     }
 }

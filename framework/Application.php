@@ -70,10 +70,16 @@ class Application {
      * @param $controller
      *
      * @return Controller
+     * @throws Exception
      */
     private function getController($controller)
     {
-        return new Controller();
+        $classname = '\controllers\\'.ucfirst($controller);
+        if(!class_exists($classname))
+            $classname = $classname.'Controller';
+        if(!class_exists($classname))
+            throw new Exception("Controller could not be found", Core::EXCEPTION_ERROR_CODE);
+        return new $classname();
     }
 
 
