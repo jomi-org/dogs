@@ -7,6 +7,7 @@
  */
 
 namespace framework;
+use framework\modules\Request;
 use framework\modules\Response;
 use framework\modules\Router;
 
@@ -15,7 +16,8 @@ use framework\modules\Router;
  * @package framework
  * @property array $params
  * @property Router $router
- * @property Response response
+ * @property Response $response
+ * @property Request $request
  */
 class Application {
 
@@ -51,16 +53,11 @@ class Application {
     public function run()
     {
         try{
-            $result = $this->handleRequest($this->getRequest());
+            $result = $this->handleRequest();
             $this->response->perform($result);
         } catch(Exception $e) {
 
         }
-    }
-
-    public function getRequest()
-    {
-        return new Request();
     }
 
     public function handleRequest()

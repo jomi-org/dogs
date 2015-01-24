@@ -26,6 +26,8 @@ class Response extends Module{
 
     /**
      * @param $result
+     *
+     * @return bool
      */
     public function perform($result)
     {

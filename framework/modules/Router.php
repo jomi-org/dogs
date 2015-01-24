@@ -26,7 +26,7 @@ class Router extends Module{
     {
         if(empty($this->_config['default']['controller']) || empty($this->_config['default']['action']))
             throw new Exception('Please add default controller or action to your router config');
-        $request = Core::$app->getRequest();
+        $request = Core::$app->request;
         $this->uri = $request->getUri();
         $this->resolve();
     }

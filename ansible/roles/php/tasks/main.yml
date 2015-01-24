@@ -1,0 +1,35 @@
+---
+- name: install php5-fpm
+  apt: name=php5-fpm state=present
+  tags: php
+- name: install php5-cli
+  apt: name=php5-cli state=present
+  tags: php
+- name: move templates fpm.ini.j2
+  template: src=fpm.ini.j2
+            dest=/etc/php5/fpm/php.ini
+            mode=777
+#- name: move templates cli.ini.j2
+#  template: src=cli.ini.j2
+#            dest=/etc/php5/cli/php.ini
+#            mode=777
+- name: install php-pear
+  apt: name=php-pear state=present
+  tags: php pear
+- name: install ext-intl
+  apt: name=php5-intl state=present
+- name: install mcrypt
+  apt: name=php5-mcrypt state=present
+- name: enable fpm mcrypt
+  file: src=/etc/php5/mods-available/mcrypt.ini dest=/etc/php5/fpm/conf.d/20-mcrypt.ini state=link
+- name: enable cli mcrypt
+  file: src=/etc/php5/mods-available/mcrypt.ini dest=/etc/php5/cli/conf.d/20-mcrypt.ini state=link
+
+- name: install php5-xdebug
+  apt: name=php5-xdebug state=present
+- name: xdebug configuration
+  template: src=xdebug.ini.j2
+            dest=/etc/php5/mods-available/xdebug.ini
+            mode=777
+  notify:
+    - restart php

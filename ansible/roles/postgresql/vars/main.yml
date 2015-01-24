@@ -1,0 +1,4 @@
+---
+- dbname: users
+- dbuser: users
+- dbpassword: 1q2w3e
