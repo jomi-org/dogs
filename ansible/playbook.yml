@@ -3,8 +3,10 @@
   sudo: yes
   vars:
   roles:
+  - apt-get-config
   - nginx
   - php
+  - curl
   - postgresql
   - composer
   - git

@@ -9,7 +9,7 @@
   template: src=nginx.conf.j2
             dest=/etc/nginx/nginx.conf
             mode=777
-- name: setup pma.local template
+- name: setup users.local template
   template: src=sites-available/users.local.j2
             dest=/etc/nginx/sites-enabled/users.local
             mode=777

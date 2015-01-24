@@ -1,0 +1,7 @@
+---
+- name: install curl
+  apt: name=curl state=present
+  tags: curl 
+- name: install php5-curl
+  apt: name=php5-curl state=present
+  tags: php
