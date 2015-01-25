@@ -9,6 +9,12 @@
 namespace app\assets;
 
 
-class Bootstrap {
+use framework\Asset;
 
+class Bootstrap extends Asset {
+
+    public $css = array(
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css'
+    );
 }

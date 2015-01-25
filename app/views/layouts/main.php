@@ -7,6 +7,7 @@
  * @var \framework\View $this
  * @var string $content
  */
+$this->registerAsset(\app\assets\Bootstrap::class);
 ?>
 <!DOCTYPE html>
 <html>
