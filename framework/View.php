@@ -16,7 +16,8 @@ class View {
 
     /** @var  static */
     private static $_instance;
-    public static $layout = false;
+    protected $_head;
+    public $layout = false;
 
     public static function getInstance()
     {
@@ -34,7 +35,7 @@ class View {
      * @return string
      * @throws Exception
      */
-    public static function render($file, array $params = array())
+    public function render($file, array $params = array())
     {
         if(!file_exists($file))
             throw new Exception("View file $file does not exist",Core::EXCEPTION_ERROR_CODE);
@@ -47,5 +48,22 @@ class View {
         $result = ob_get_contents();
         ob_end_clean();
         return $result;
+    }
+
+    public function head()
+    {
+        //TODO: implement assets
+        $this->_head = '';
+        return $this->_head;
+    }
+
+    public function renderLayout($content)
+    {
+        if(!$this->layout)
+            return $content;
+        $layout = Core::$baseDir.'/app/views/layouts/'.trim($this->layout,"\\/").'.php';
+        if(!file_exists($layout))
+            throw new Exception("Layout file $layout does not exists",Core::EXCEPTION_ERROR_CODE);
+        return $this->render($layout, array('content' => $content));
     }
 }

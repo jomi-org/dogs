@@ -9,6 +9,7 @@
 namespace framework\modules;
 
 use framework\Module;
+use framework\View;
 
 /**
  * Class Response
@@ -61,7 +62,7 @@ class Response extends Module{
             default:
                 break;
         }
-        echo $result;
+        echo View::getInstance()->renderLayout($result);
         return true;
     }
 }

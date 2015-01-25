@@ -13,6 +13,8 @@ use framework\Controller;
 
 class User extends Controller{
 
+    public $layout = "main";
+
     public function actionSignUp()
     {
         return $this->render('user/signup',array('login' => 'login'));
