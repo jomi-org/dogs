@@ -41,9 +41,6 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
             $this->assertSame($uri, $this->router->uri);
             $this->assertSame('controller', $this->router->controller);
             $this->assertSame('action', $this->router->action);
-
-
-
         } catch(Exception $e) {
             $this->fail($e->getMessage());
         }

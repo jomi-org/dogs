@@ -18,6 +18,8 @@ class View {
     private static $_instance;
     protected $_head;
     public $layout = false;
+    /** @var Asset[] */
+    private $_assets = array();
 
     public static function getInstance()
     {
@@ -50,13 +52,23 @@ class View {
         return $result;
     }
 
+    /**
+     * this function prints css includes in head section
+     */
     public function head()
     {
-        //TODO: implement assets
-        $this->_head = '';
-        return $this->_head;
+        foreach($this->_assets as $asset) {
+            echo $asset->getAllCssIncludes();
+        }
     }
 
+    /**
+     * return string with rendered layout
+     * @param $content - it's Controller/Action result
+     *
+     * @return string
+     * @throws Exception
+     */
     public function renderLayout($content)
     {
         if(!$this->layout)
@@ -65,5 +77,33 @@ class View {
         if(!file_exists($layout))
             throw new Exception("Layout file $layout does not exists",Core::EXCEPTION_ERROR_CODE);
         return $this->render($layout, array('content' => $content));
+    }
+
+    /**
+     * this function includes js script at the end of Body
+     */
+    public function endBody()
+    {
+        foreach($this->_assets as $asset) {
+            echo $asset->getAllJsIncludes();
+        }
+    }
+
+    /**
+     * Register Asset instance in _assets
+     * @param $assetName
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function registerAsset($assetName)
+    {
+        if(!class_exists($assetName))
+            throw new Exception("Asset $assetName does not exist", Core::EXCEPTION_ERROR_CODE);
+        if(array_key_exists($assetName,$this->_assets))
+            return true;
+        else
+            $this->_assets[$assetName] = new $assetName();
+        return true;
     }
 }

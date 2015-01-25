@@ -9,14 +9,21 @@
 namespace app\controllers;
 
 
+use app\models\User;
 use framework\Controller;
+use framework\Core;
 
-class User extends Controller{
+class UserController extends Controller{
 
     public $layout = "main";
 
     public function actionSignUp()
     {
+        if(!empty(Core::$app->request->post)){
+            $model = new User();
+            $model->fillFromRequest();
+            $model->save();
+        }
         return $this->render('user/signup',array('login' => 'login'));
     }
 }

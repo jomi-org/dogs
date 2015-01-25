@@ -11,11 +11,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php echo $this->head();?>
+    <?php $this->head();?>
 </head>
 <body>
     <div id="wrapper">
         <?php echo $content; ?>
     </div>
+    <?php $this->endBody() ?>
 </body>
 </html>

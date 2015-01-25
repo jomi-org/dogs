@@ -7,6 +7,7 @@
  */
 
 namespace framework;
+use framework\controllers\ErrorController;
 use framework\modules\Request;
 use framework\modules\Response;
 use framework\modules\Router;
@@ -56,7 +57,8 @@ class Application {
             $result = $this->handleRequest();
             $this->response->perform($result);
         } catch(Exception $e) {
-
+            $controller = new ErrorController();
+            $this->response->perform($controller->actionException($e));
         }
     }
 

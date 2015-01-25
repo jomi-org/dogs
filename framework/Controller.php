@@ -32,7 +32,7 @@ class Controller {
      * @return mixed
      * @throws Exception
      */
-    public function render($viewFileName, array $params) {
+    public function render($viewFileName, array $params = array()) {
         $view = $this->getView();
         $file = Core::$baseDir.'/app/views/'.trim($viewFileName,"\\/") . '.php';
         return $view->render($file,$params);
