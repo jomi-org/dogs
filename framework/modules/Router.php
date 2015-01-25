@@ -42,6 +42,13 @@ class Router extends Module{
             return true;
         }
         $this->controller = $parts[0];
+        if(strpos($this->controller,'-')){
+            $controllerParts = explode('-',$this->controller);
+            $this->controller = '';
+            foreach($controllerParts as $controllerPart) {
+                $this->controller.=ucfirst($controllerPart);
+            }
+        }
         if(count($parts) == 1) {
             if(empty($this->_config[$this->controller]['default']['action']))
                 throw new Exception("Please set default action for ".$this->controller." controller in config.",Core::EXCEPTION_ERROR_CODE);
@@ -49,6 +56,13 @@ class Router extends Module{
             return true;
         }
         $this->action = $parts[1];
+        if(strpos($this->action,'-')){
+            $actionParts = explode('-',$this->action);
+            $this->action = '';
+            foreach($actionParts as $actionPart) {
+                $this->action.=ucfirst($actionPart);
+            }
+        }
         return true;
     }
 

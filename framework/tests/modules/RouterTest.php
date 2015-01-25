@@ -32,7 +32,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf(Router::class,$this->router);
     }
 
-    public function testResolve()
+    public function testResolveNormal()
     {
         try {
             $uri = '/controller/action/id/1';
@@ -41,13 +41,29 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
             $this->assertSame($uri, $this->router->uri);
             $this->assertSame('controller', $this->router->controller);
             $this->assertSame('action', $this->router->action);
-            $uri = '/controller';
-            Core::$app->request->uri = $uri;
-            $this->router->init();
-            $this->assertSame('controller',$this->router->controller);
-            $this->assertSame('action',$this->router->action);
+
+
+
         } catch(Exception $e) {
             $this->fail($e->getMessage());
         }
+    }
+
+    public function testResolveWithOnlyController()
+    {
+        $uri = '/controller';
+        Core::$app->request->uri = $uri;
+        $this->router->init();
+        $this->assertSame('controller',$this->router->controller);
+        $this->assertSame('action',$this->router->action);
+    }
+
+    public function testResolveWithHyphenControllerAndAction()
+    {
+        $uri = '/controller-one/action-two';
+        Core::$app->request->uri = $uri;
+        $this->router->init();
+        $this->assertSame('ControllerOne',$this->router->controller);
+        $this->assertSame('ActionTwo',$this->router->action);
     }
 }
