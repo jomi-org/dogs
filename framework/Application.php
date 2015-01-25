@@ -40,7 +40,7 @@ class Application {
             return $this->{'_'.$name} = $this->{'get'.ucfirst($name)};
         if(Core::moduleExists($name))
             return $this->{'_'.$name} = Core::getModule($name);
-        throw new Exception("Can't get method", Core::EXCEPTION_ERROR_CODE);
+        throw new Exception("Can't get method:".$name, Core::EXCEPTION_ERROR_CODE);
     }
 
     private function init(Config $config)

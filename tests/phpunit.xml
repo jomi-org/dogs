@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="bootstrap.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         stopOnFailure="false">
+
+    <!--<selenium>-->
+    <!--&lt;!&ndash;<browser name="Internet Explorer" browser="*iexplore" />&ndash;&gt;-->
+    <!--&lt;!&ndash;<browser name="Firefox" browser="*firefox" />&ndash;&gt;-->
+    <!--<browser name="Firefox on Linux"-->
+    <!--browser="*firefox /usr/lib/firefox/firefox"-->
+    <!--host="api.mspyon-main.hm"-->
+    <!--port="4444"-->
+    <!--timeout="3000" />-->
+    <!--</selenium>-->
+
+    <php>
+        <env name="TEST_BASE_URL" value="http://users.local/index-test.php" />
+    </php>
+
+    <testsuites>
+        <testsuite name="framework">
+            <directory>../framework/tests/</directory>
+        </testsuite>
+
+    </testsuites>
+
+</phpunit>

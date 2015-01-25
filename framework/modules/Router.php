@@ -27,7 +27,7 @@ class Router extends Module{
         if(empty($this->_config['default']['controller']) || empty($this->_config['default']['action']))
             throw new Exception('Please add default controller or action to your router config');
         $request = Core::$app->request;
-        $this->uri = $request->uri();
+        $this->uri = $request->uri;
         $this->resolve();
     }
 
@@ -36,13 +36,15 @@ class Router extends Module{
     {
         $uri = trim($this->uri,"/");
         $parts = explode('/',$uri);
-        if(!count($parts)) {
+        if(empty($parts[0])) {
             $this->controller = $this->_config['default']['controller'];
             $this->action = $this->_config['default']['action'];
             return true;
         }
         $this->controller = $parts[0];
         if(count($parts) == 1) {
+            if(empty($this->_config[$this->controller]['default']['action']))
+                throw new Exception("Please set default action for ".$this->controller." controller in config.",Core::EXCEPTION_ERROR_CODE);
             $this->action = $this->_config[$this->controller]['default']['action'];
             return true;
         }
