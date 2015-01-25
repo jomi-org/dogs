@@ -74,7 +74,7 @@ class Application {
      */
     private function getController($controller)
     {
-        $classname = '\controllers\\'.ucfirst($controller);
+        $classname = '\app\controllers\\'.ucfirst($controller);
         if(!class_exists($classname))
             $classname = $classname.'Controller';
         if(!class_exists($classname))
