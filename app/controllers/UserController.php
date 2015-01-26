@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\models\User;
 use framework\Controller;
 use framework\Core;
+use framework\Exception;
 
 class UserController extends Controller{
 
@@ -19,11 +20,17 @@ class UserController extends Controller{
 
     public function actionSignUp()
     {
+        $message = '';
         if(!empty(Core::$app->request->post)){
             $model = new User();
-            $model->fillFromRequest();
+            try{
+                $model->fillFromRequest();
+            } catch(Exception $e){
+                $message = $e->getMessage();
+            }
             $model->save();
         }
-        return $this->render('user/signup',array('login' => 'login'));
+        Core::$app->request->post['msg'] = $message;
+        return $this->render('user/signup',Core::$app->request->post);
     }
 }

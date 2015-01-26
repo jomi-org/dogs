@@ -27,6 +27,8 @@ class Application {
     /** @var  Config */
     protected $config;
 
+    public $type = 'web';
+
     public function __construct(Config $config)
     {
         Core::$app = $this;
@@ -44,7 +46,7 @@ class Application {
         throw new Exception("Can't get method:".$name, Core::EXCEPTION_ERROR_CODE);
     }
 
-    private function init(Config $config)
+    protected function init(Config $config)
     {
         Core::$config = $config;
         $this->params = $config->getParams();
@@ -68,19 +70,24 @@ class Application {
         return $controller->runAction($this->router->action);
     }
 
+    protected function getControllerNamespace()
+    {
+        return '\\app\\controllers\\';
+    }
+
     /**
      * @param $controller
      *
      * @return Controller
      * @throws Exception
      */
-    private function getController($controller)
+    protected function getController($controller)
     {
-        $classname = '\app\controllers\\'.ucfirst($controller);
+        $classname = $this->getControllerNamespace().ucfirst($controller);
         if(!class_exists($classname))
             $classname = $classname.'Controller';
         if(!class_exists($classname))
-            throw new Exception("Controller could not be found", Core::EXCEPTION_ERROR_CODE);
+            throw new Exception("Controller $classname could not be found", Core::EXCEPTION_ERROR_CODE);
         return new $classname();
     }
 

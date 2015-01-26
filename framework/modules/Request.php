@@ -24,13 +24,22 @@ class Request extends Module{
      */
     public function init()
     {
-        $this->uri = $this->getUri();
-        if(!empty($_GET))
-            $this->get = $_GET;
-        if(!empty($_POST))
-            $this->post = $_POST;
-        unset($_GET);
-        unset($_POST);
+        switch(Core::$app->type) {
+            case 'web':
+                $this->uri = $this->getUri();
+                if(!empty($_GET))
+                    $this->get = $_GET;
+                if(!empty($_POST))
+                    $this->post = $_POST;
+                unset($_GET);
+                unset($_POST);
+                break;
+            case 'console':
+                if(isset($argv[1]))
+                    $this->uri = $argv[1];
+                break;
+        }
+
     }
 
     /**

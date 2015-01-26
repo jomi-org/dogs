@@ -13,4 +13,40 @@ use framework\Model;
 
 class User extends Model{
 
+    /**
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return array(
+            'login',
+            'password',
+            'email',
+            'name',
+            'city',
+            'about'
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequiredFields()
+    {
+        return array(
+            'login',
+            'password',
+            'email'
+        );
+    }
+
+
+    /**
+     * @throws \Exception
+     * @return bool
+     */
+    public function save()
+    {
+        return true;
+    }
 }

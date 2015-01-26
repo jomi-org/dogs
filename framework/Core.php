@@ -14,6 +14,7 @@ define('BASE_DIR',dirname(__DIR__));
  */
 class Core {
     const EXCEPTION_ERROR_CODE = 500;
+    const EXCEPTION_NOT_ERROR_CODE = 1024;
 
     /** @var  Application */
     public static $app;

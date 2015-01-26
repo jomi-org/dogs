@@ -16,7 +16,14 @@
 use framework\helpers\ActiveForm;
 $this->registerAsset(\app\assets\SignUp::class);
 ?>
+
+<?php if(!empty($msg)):?>
+    <div class="center-block message bg-danger text-danger">
+        <?php echo $msg; ?>
+    </div>
+<?php endif;?>
 <div id="signup-form" class="center-block">
+
     <?php echo ActiveForm::start('','post','signup','form-horizontal');?>
         <div class="form-group">
             <label for="login" class="col-sm-2 control-label">Login</label>
