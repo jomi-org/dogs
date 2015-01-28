@@ -56,7 +56,7 @@ class UserTest extends \PHPUnit_Extensions_SeleniumTestCase {
     {
         foreach($interests as $interest) {
             $this->clickAndWait('id=add-new-interest');
-            $this->type('css=.interest:last-of-type',$interests);
+            $this->type('css=.interest:last-of-type',$interest);
         }
     }
 
