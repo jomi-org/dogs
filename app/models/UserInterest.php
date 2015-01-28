@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: macseem
- * Date: 1/25/15
- * Time: 4:45 PM
+ * Date: 1/26/15
+ * Time: 11:01 PM
  */
 
 namespace app\models;
@@ -11,21 +11,14 @@ namespace app\models;
 
 use framework\Model;
 
-class User extends Model{
+class UserInterest extends Model{
 
     /**
      * @return array
      */
     public function getAttributeNames()
     {
-        return array(
-            'login',
-            'password',
-            'email',
-            'name',
-            'city',
-            'about'
-        );
+        // TODO: Implement getAttributeNames() method.
     }
 
     /**
@@ -33,13 +26,8 @@ class User extends Model{
      */
     public function getRequiredFields()
     {
-        return array(
-            'login',
-            'password',
-            'email'
-        );
+        // TODO: Implement getRequiredFields() method.
     }
-
 
     /**
      * @throws \Exception
@@ -47,6 +35,6 @@ class User extends Model{
      */
     public function save()
     {
-        return true;
+        // TODO: Implement save() method.
     }
 }

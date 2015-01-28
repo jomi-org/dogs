@@ -8,6 +8,7 @@
 
 namespace framework;
 use framework\controllers\ErrorController;
+use framework\modules\Db;
 use framework\modules\Request;
 use framework\modules\Response;
 use framework\modules\Router;
@@ -19,6 +20,7 @@ use framework\modules\Router;
  * @property Router $router
  * @property Response $response
  * @property Request $request
+ * @property Db $db
  */
 class Application {
 

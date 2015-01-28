@@ -2,16 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: macseem
- * Date: 1/25/15
- * Time: 4:45 PM
+ * Date: 1/26/15
+ * Time: 11:00 PM
  */
 
 namespace app\models;
 
 
+use framework\Core;
 use framework\Model;
 
-class User extends Model{
+class Auth extends Model{
 
     /**
      * @return array
@@ -19,12 +20,10 @@ class User extends Model{
     public function getAttributeNames()
     {
         return array(
+            'id',
             'login',
-            'password',
-            'email',
-            'name',
-            'city',
-            'about'
+            'pass',
+            'salt'
         );
     }
 
@@ -35,11 +34,10 @@ class User extends Model{
     {
         return array(
             'login',
-            'password',
-            'email'
+            'pass',
+            'salt'
         );
     }
-
 
     /**
      * @throws \Exception
@@ -47,6 +45,6 @@ class User extends Model{
      */
     public function save()
     {
-        return true;
+        Core::$app->db->insert($this->table,$this->attributes);
     }
 }
