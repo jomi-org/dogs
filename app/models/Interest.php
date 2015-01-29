@@ -11,9 +11,12 @@ namespace app\models;
 
 use framework\ActiveRecord;
 
-class Auth extends ActiveRecord{
-
-    protected $table = 'auth';
+/**
+ * @property int id
+ * @property mixed|null name
+ */
+class Interest extends ActiveRecord
+{
 
     /**
      * @return array
@@ -22,9 +25,7 @@ class Auth extends ActiveRecord{
     {
         return array(
             'id',
-            'login',
-            'pass',
-            'salt'
+            'name'
         );
     }
 
@@ -33,11 +34,7 @@ class Auth extends ActiveRecord{
      */
     public function getRequiredFields()
     {
-        return array(
-            'login',
-            'pass',
-            'salt'
-        );
+        return array('name');
     }
 
     /**
@@ -53,6 +50,6 @@ class Auth extends ActiveRecord{
      */
     public function getTable()
     {
-        return $this->table;
+        return 'interest';
     }
 }

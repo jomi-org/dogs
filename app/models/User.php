@@ -9,9 +9,9 @@
 namespace app\models;
 
 
-use framework\Model;
+use framework\MultiActiveRecord;
 
-class User extends Model{
+class User extends MultiActiveRecord{
 
     /**
      * @return array

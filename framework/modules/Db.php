@@ -11,6 +11,7 @@ namespace framework\modules;
 
 use framework\Core;
 use framework\Exception;
+use framework\helpers\DbHelper;
 use framework\Module;
 
 class Db extends Module{
@@ -45,7 +46,7 @@ class Db extends Module{
     {
         $sql = 'INSERT INTO '
             .$this->pdo->quote($table) . ' '
-            .$this->getSets($values);
+            .DbHelper::getSets($values);
         $this->pdo->exec($sql);
         return $this->pdo->lastInsertId();
     }
@@ -61,8 +62,8 @@ class Db extends Module{
     public function update($table, array $values, $conditions)
     {
         $sql = 'UPDATE ' . $this->pdo->quote($table) . ' '
-            .$this->getSets($values) . ' '
-            .$this->getConditions($conditions);
+            .DbHelper::getSets($values) . ' '
+            .DbHelper::getConditions($conditions);
         return $this->exec($sql);
     }
 
@@ -76,7 +77,7 @@ class Db extends Module{
     public function delete($table, $conditions)
     {
         $sql = 'DELETE FROM '.$this->pdo->quote($table).' '
-            .$this->getConditions($conditions);
+            .DbHelper::getConditions($conditions);
         return $this->exec($sql);
     }
 
@@ -106,25 +107,5 @@ class Db extends Module{
         return $this->pdo->commit();
     }
 
-    private function getSets(array $values)
-    {
-        $sets = array();
-        foreach($values as $key => $value){
-            $sets[] = $this->pdo->quote($key).'='.$this->pdo->quote($value);
-        }
-        return join(', ',$sets);
-    }
 
-    /**
-     * @param $conditions
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    private function getConditions($conditions)
-    {
-        if(is_string($conditions))
-            return $conditions;
-        throw new Exception("Other functionality is not developed yet", 500);
-    }
 }

@@ -9,6 +9,45 @@
 namespace app\models;
 
 
-class Profile {
+use framework\ActiveRecord;
 
+class Profile extends ActiveRecord {
+
+    /**
+     * @return array
+     */
+    public function getAttributeNames()
+    {
+        return array(
+            'user_id',
+            'email',
+            'name',
+            'city',
+            'about'
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequiredFields()
+    {
+        return array();
+    }
+
+    /**
+     * @return array ( $keyName )
+     */
+    public function getPrimary()
+    {
+        // TODO: Implement getPrimary() method.
+    }
+
+    /**
+     * @return string
+     */
+    public function getTable()
+    {
+        // TODO: Implement getTable() method.
+    }
 }

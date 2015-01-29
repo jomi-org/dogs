@@ -82,10 +82,15 @@ class UserTest extends \PHPUnit_Extensions_SeleniumTestCase {
         $this->interestsCheck($userId,$interests);
     }
 
+    /**
+     * @param array $profile
+     * @return int
+     */
     public function profileCheck(array $profile)
     {
         /** @var User $user */
-        $user = User::findBy('login',$profile['login']);
+        $model = new User();
+        $user = $model->findOneBy('login',$profile['login']);
         $this->assertTrue(!empty($user));
         foreach($profile as $key => $value) {
             $this->assertTrue($user->$key == $profile[$key]);
@@ -95,10 +100,11 @@ class UserTest extends \PHPUnit_Extensions_SeleniumTestCase {
 
     public function interestsCheck($userId, array $interests)
     {
-        /** @var UserInterest[] $model */
-        $userInterests = UserInterest::findAll(array('user_id' => $userId));
+        /** @var UserInterest[] $userInterests */
+        $model = new UserInterest();
+        $userInterests = $model->findAll(array('user_id' => $userId));
         foreach($userInterests as $userInterest) {
-            $this->assertTrue(in_array($userInterest->name,$interests,true));
+            $this->assertTrue(in_array($userInterest->getName(),$interests,true));
         }
     }
 

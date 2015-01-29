@@ -9,8 +9,15 @@
 namespace framework;
 
 
-abstract class Model {
+use framework\helpers\DbHelper;
+use framework\interfaces\IActiveRecord;
 
+abstract class ActiveRecord implements IActiveRecord{
+    const EXCEPTION_NOT_VALID_ROW = 2000;
+
+    /** @var modules\Db  */
+    public $db;
+    public $isNew;
     protected $attributes = array();
 
     public function __construct()
@@ -18,6 +25,8 @@ abstract class Model {
         $this->attributes = array_flip($this->getAttributeNames());
         foreach($this->attributes as &$attribute)
             $attribute = NULL;
+        $this->db = Core::$app->db;
+        $this->isNew = true;
     }
 
     public function __set($name, $value)
@@ -39,24 +48,76 @@ abstract class Model {
         return NULL;
     }
 
-    public function getAttributes() {
-        return $this->attributes;
-    }
+    /**
+     * @return string
+     */
+    public abstract function getTable();
+
     /**
      * @return array
      */
     public abstract function getAttributeNames();
-
     /**
      * @return array
      */
     public abstract function getRequiredFields();
 
     /**
+     * @return array ( $keyName )
+     */
+    public abstract function getPrimary();
+
+    /**
+     * @return array
+     */
+    public function getAttributes() {
+        return $this->attributes;
+    }
+
+    /**
      * @throws \Exception
      * @return bool
      */
-    public abstract function save();
+    public function save()
+    {
+        if($this->isNew)
+            return $this->db->insert($this->getTable(),$this->getAttributes());
+        $conditions = array();
+        $primary = $this->getPrimary();
+        foreach($primary as $key)
+            $conditions[] = $this->db->pdo->quote($key).'='.$this->db->pdo->quote($this->$key);
+        $conditions = join(', ',$conditions);
+        return $this->db->update($this->getTable(), $this->getAttributes(),$conditions);
+    }
+
+    public function findOne($conditions)
+    {
+        $sql = 'select * from {$this->getTable()} '. DbHelper::getConditions($conditions) . 'limit 1';
+        $row = $this->db->query($sql)->fetch(\PDO::FETCH_ASSOC);
+        if(empty($row) || !is_array($row))
+            throw new Exception('Something were wrong', static::EXCEPTION_NOT_VALID_ROW);
+        foreach($row as $key => $value) {
+            $this->$key = $value;
+        }
+        $this->isNew = false;
+        return $this;
+    }
+    public function findOneBy($column,$value)
+    {
+        $column = $this->db->pdo->quote($column);
+        $value = $this->db->pdo->quote($value);
+        $conditions = "where $column = $value";
+        return $this->findOne($conditions);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAll($conditions)
+    {
+        //TODO: implement it
+        return array();
+    }
 
     public function fillFromRequest()
     {
@@ -90,7 +151,7 @@ abstract class Model {
      *
      * @return bool
      */
-    protected function isRequired($attribute)
+    public function isRequired($attribute)
     {
         return in_array($attribute,$this->getRequiredFields());
     }

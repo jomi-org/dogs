@@ -9,16 +9,23 @@
 namespace app\models;
 
 
-use framework\Model;
+use framework\ActiveRecord;
 
-class UserInterest extends Model{
+/**
+ * @property mixed|null user_id
+ * @property mixed|null interest_id
+ */
+class UserInterest extends ActiveRecord{
 
     /**
      * @return array
      */
     public function getAttributeNames()
     {
-        // TODO: Implement getAttributeNames() method.
+        return array(
+            'user_id',
+            'interest_id'
+        );
     }
 
     /**
@@ -26,15 +33,31 @@ class UserInterest extends Model{
      */
     public function getRequiredFields()
     {
-        // TODO: Implement getRequiredFields() method.
+        return $this->getAttributeNames();
     }
 
     /**
-     * @throws \Exception
-     * @return bool
+     * @return string
      */
-    public function save()
+    public function getTable()
     {
-        // TODO: Implement save() method.
+        return 'user_interest';
+    }
+
+    /**
+     * @return array ( $keyName )
+     */
+    public function getPrimary()
+    {
+        return $this->getRequiredFields();
+    }
+
+    /**
+     * @return ActiveRecord
+     */
+    public function getName()
+    {
+        $model = new Interest();
+        return $model->findOneBy('id',$this->interest_id)->name;
     }
 }
