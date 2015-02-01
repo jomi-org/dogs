@@ -9,6 +9,8 @@
 namespace framework;
 
 
+use framework\controllers\ErrorController;
+
 class ConsoleApplication extends Application{
 
     protected function init(Config $config)
@@ -17,8 +19,26 @@ class ConsoleApplication extends Application{
         $this->type = 'console';
     }
 
-    protected function getControllerNamespace()
+    protected function getControllerNamespaces()
     {
-        return '\\app\\commands\\';
+        return array(
+            '\\app\\commands\\',
+            '\\framework\\commands\\'
+        );
+    }
+
+    protected function getControllerSuffixes()
+    {
+        return array(
+            '',
+            'Command',
+            'Controller'
+        );
+    }
+
+    protected function performError(\Exception $e)
+    {
+        $controller = new ErrorController();
+        $this->response->perform($controller->actionConsoleException($e));
     }
 }

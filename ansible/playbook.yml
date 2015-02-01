@@ -7,7 +7,7 @@
   - nginx
   - php
   - curl
-  - postgresql
+  - mysql #postgresql
   - composer
   - git
   tasks:

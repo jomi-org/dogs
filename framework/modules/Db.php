@@ -33,7 +33,9 @@ class Db extends Module{
         )
             throw new Exception("Invalid DB config", Core::EXCEPTION_ERROR_CODE);
         $this->connectionString = $this->_config['dsn'];
-        $this->pdo = new \PDO($this->connectionString,$this->_config['username'],$this->_config['password']);
+        $options = array(
+        );
+        $this->pdo = new \PDO($this->connectionString,$this->_config['username'],$this->_config['password'],$options);
     }
 
     /**
@@ -45,7 +47,7 @@ class Db extends Module{
     public function insert($table, array $values)
     {
         $sql = 'INSERT INTO '
-            .$this->pdo->quote($table) . ' '
+            .trim($this->pdo->quote($table),"'") . ' SET '
             .DbHelper::getSets($values);
         $this->pdo->exec($sql);
         return $this->pdo->lastInsertId();
@@ -76,7 +78,7 @@ class Db extends Module{
      */
     public function delete($table, $conditions)
     {
-        $sql = 'DELETE FROM '.$this->pdo->quote($table).' '
+        $sql = 'DELETE FROM '.trim($this->pdo->quote($table),"'").' '
             .DbHelper::getConditions($conditions);
         return $this->exec($sql);
     }

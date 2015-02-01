@@ -53,7 +53,7 @@ class Request extends Module{
     }
 
     /**
-     * @param $actionArgs
+     * @param \ReflectionParameter[] $actionArgs
      *
      * @return array
      * @throws Exception
@@ -61,7 +61,6 @@ class Request extends Module{
     public function getActionParams($actionArgs)
     {
         $args = array();
-        /** @var  \ReflectionParameter[] $actionArgs */
         foreach($actionArgs as $param)
         {
             $argName = $param->getName();

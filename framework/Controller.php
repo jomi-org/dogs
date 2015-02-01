@@ -34,7 +34,7 @@ class Controller {
      */
     public function render($viewFileName, array $params = array()) {
         $view = $this->getView();
-        $file = Core::$baseDir.'/app/views/'.trim($viewFileName,"\\/") . '.php';
+        $file = Core::$baseDir.DIRECTORY_SEPARATOR.'app'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.trim($viewFileName,"\\/") . '.php';
         return $view->render($file,$params);
     }
 
@@ -52,5 +52,10 @@ class Controller {
     protected function getView()
     {
         return View::getInstance();
+    }
+
+    public function beforeAction()
+    {
+
     }
 }

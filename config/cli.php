@@ -20,6 +20,12 @@ return array(
         ),
         'response' => array(
             'class' => \framework\modules\Response::class
+        ),
+        'db' => array(
+            'class' => \framework\modules\Db::class,
+            'dsn' => 'mysql:host=localhost;dbname=users',
+            'username' => 'users',
+            'password' => '1q2w3e'
         )
     ),
     'params' => array()

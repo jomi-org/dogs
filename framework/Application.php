@@ -61,20 +61,37 @@ class Application {
             $result = $this->handleRequest();
             $this->response->perform($result);
         } catch(Exception $e) {
-            $controller = new ErrorController();
-            $this->response->perform($controller->actionException($e));
+            $this->performError($e);
         }
+    }
+
+    protected function performError(\Exception $e)
+    {
+        $controller = new ErrorController();
+        $this->response->perform($controller->actionException($e));
     }
 
     public function handleRequest()
     {
         $controller = $this->getController($this->router->controller);
+        $controller->beforeAction();
         return $controller->runAction($this->router->action);
     }
 
-    protected function getControllerNamespace()
+    protected function getControllerNamespaces()
     {
-        return '\\app\\controllers\\';
+        return array(
+            '\\app\\controllers\\',
+            '\\framework\\controllers\\'
+        );
+    }
+
+    protected function getControllerSuffixes()
+    {
+        return array(
+            '',
+            'Controller'
+        );
     }
 
     /**
@@ -85,12 +102,14 @@ class Application {
      */
     protected function getController($controller)
     {
-        $classname = $this->getControllerNamespace().ucfirst($controller);
-        if(!class_exists($classname))
-            $classname = $classname.'Controller';
-        if(!class_exists($classname))
-            throw new Exception("Controller $classname could not be found", Core::EXCEPTION_ERROR_CODE);
-        return new $classname();
+        foreach($this->getControllerNamespaces() as $namespace) {
+            foreach($this->getControllerSuffixes() as $suffix){
+                $name = $namespace . ucfirst($controller) . $suffix;
+                if(class_exists($name))
+                    return new $name();
+            }
+        }
+        throw new Exception("Controller $controller could not be found", Core::EXCEPTION_ERROR_CODE);
     }
 
 

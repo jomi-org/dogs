@@ -15,7 +15,7 @@ use framework\Module;
 
 class ConsoleRequest extends Request{
 
-    /** @var   */
+    /** @var string  */
     public $uri;
     public $args = array();
     /**
@@ -23,34 +23,51 @@ class ConsoleRequest extends Request{
      */
     public function init()
     {
-        if(isset($argv))
-            $this->args = $this->_config['argv'];
+        $this->args = $this->_config['argv'];
         $this->uri = $this->getUri();
 
     }
 
     /**
      * @return string
+     * @throws Exception
      */
     public function getUri()
     {
-        var_dump($this->args);exit;
         if(isset($this->args[1]))
             return $this->args[1];
+        throw new Exception("Can't get Uri");
     }
 
     /**
-     * @param $actionArgs
+     * @param \ReflectionParameter[] $actionArgs
      *
      * @return array
      * @throws Exception
      */
     public function getActionParams($actionArgs)
     {
-        $expectedCount = count($this->args)-3;
-        $actualCount = count($actionArgs);
+        $actualCount = count($this->args)-2;
+        $expectedCount = count($actionArgs);
         if($expectedCount != $actualCount )
             throw new Exception("Expected $expectedCount arguments, $actualCount passed", Core::EXCEPTION_ERROR_CODE);
-        return array_slice($this->args,2);
+        $params = array();
+        foreach(array_slice($this->args,2) as $param)
+        {
+            $paramExplode = explode('=',$param,2);
+            $params[$paramExplode[0]] = $paramExplode[1];
+        }
+        $result = array();
+        foreach($actionArgs as $actionArg){
+            if(!isset($params[$actionArg->getName()]) && !$actionArg->isDefaultValueAvailable()) {
+                throw new Exception("Param ".$actionArg->getName()." can not be empty");
+            }
+            if(!isset($params[$actionArg->getName()])){
+                $result[] = $actionArg->getDefaultValue();
+            } else {
+                $result[] = $params[$actionArg->getName()];
+            }
+        }
+        return $result;
     }
 }

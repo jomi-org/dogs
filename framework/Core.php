@@ -8,6 +8,7 @@
 namespace framework;
 
 define('BASE_DIR',dirname(__DIR__));
+define('FRAMEWORK_DIR',__DIR__);
 /**
  * Class Core
  * @package framework
@@ -22,6 +23,7 @@ class Core {
     public static $config;
 
     public static $baseDir = BASE_DIR;
+    public static $frameworkDir = FRAMEWORK_DIR;
     /**
      * @param $name
      *

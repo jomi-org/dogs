@@ -16,6 +16,7 @@ class UserTest extends \PHPUnit_Extensions_SeleniumTestCase {
 
     protected function setUp()
     {
+        /** @noinspection PhpUnusedLocalVariableInspection */
         $this->setBrowserUrl('http://users.local:8080');
     }
 

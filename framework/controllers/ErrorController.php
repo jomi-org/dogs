@@ -21,4 +21,17 @@ class ErrorController extends Controller {
         return View::getInstance()->render($file,array('e' => $e));
     }
 
+    public function actionConsoleException(\Exception $e)
+    {
+        $array = array();
+        $array['code'] = $e->getCode();
+        $array['message'] = $e->getMessage();
+        $array['file'] = $e->getFile();
+        $array['line'] = $e->getLine();
+        $array['trace'] = $e->getTrace();
+        echo json_encode($array);
+        print_r($array);
+//        $backtrace = debug_backtrace();
+//        return View::getInstance()->render($file,array('e' => $e));
+    }
 }
