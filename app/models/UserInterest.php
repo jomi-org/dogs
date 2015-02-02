@@ -60,4 +60,14 @@ class UserInterest extends ActiveRecord{
         $model = new Interest();
         return $model->findOneBy('id',$this->interest_id)->name;
     }
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    protected function setPrimary($value)
+    {
+        return true;
+    }
 }

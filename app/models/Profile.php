@@ -11,6 +11,17 @@ namespace app\models;
 
 use framework\ActiveRecord;
 
+/**
+ * Class Profile
+ *
+ * @property int $user_id
+ * @property $email
+ * @property $name
+ * @property $city
+ * @property $about
+ *
+ * @package app\models
+ */
 class Profile extends ActiveRecord {
 
     /**
@@ -40,6 +51,7 @@ class Profile extends ActiveRecord {
      */
     public function getPrimary()
     {
+        return array('user_id');
         // TODO: Implement getPrimary() method.
     }
 
@@ -49,5 +61,15 @@ class Profile extends ActiveRecord {
     public function getTable()
     {
         // TODO: Implement getTable() method.
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    protected function setPrimary($value)
+    {
+        return true;
     }
 }

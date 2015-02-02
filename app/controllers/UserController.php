@@ -9,7 +9,10 @@
 namespace app\controllers;
 
 
+use app\models\Auth;
+use app\models\Profile;
 use app\models\User;
+use app\models\UserInterest;
 use framework\Controller;
 use framework\Core;
 use framework\Exception;
@@ -22,13 +25,22 @@ class UserController extends Controller{
     {
         $message = '';
         if(!empty(Core::$app->request->post)){
-            $model = new User();
+            $auth = new Auth();
+            $profile = new Profile();
             try{
-                $model->fillFromRequest();
+                $auth->fillFromRequest();
+                $auth->cryptPassword();
+                $auth->save();
+                $profile->fillFromRequest();
+                $profile->user_id = $auth->id;
+                $profile->save();
+                $userInterest = new UserInterest();
+                $userInterest->user_id = $auth->id;
+                $userInterest->fillFromRequest();
+                $userInterest->save();
             } catch(Exception $e){
                 $message = $e->getMessage();
             }
-            $model->save();
         }
         Core::$app->request->post['msg'] = $message;
         return $this->render('user/signup',Core::$app->request->post);

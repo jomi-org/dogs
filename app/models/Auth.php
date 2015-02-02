@@ -11,6 +11,14 @@ namespace app\models;
 
 use framework\ActiveRecord;
 
+/**
+ * Class Auth
+ * @property int $id
+ * @property string $login
+ * @property string $password
+ * @property string $salt
+ * @package app\models
+ */
 class Auth extends ActiveRecord{
 
     protected $table = 'auth';
@@ -54,5 +62,20 @@ class Auth extends ActiveRecord{
     public function getTable()
     {
         return $this->table;
+    }
+
+    public function cryptPassword()
+    {
+        $this->password = md5(md5($this->password).$this->salt);
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    protected function setPrimary($value)
+    {
+        $this->id = $value;
     }
 }

@@ -52,4 +52,14 @@ class Interest extends ActiveRecord
     {
         return 'interest';
     }
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    protected function setPrimary($value)
+    {
+        $this->id = $value;
+    }
 }

@@ -80,8 +80,12 @@ abstract class ActiveRecord implements IActiveRecord{
      */
     public function save()
     {
-        if($this->isNew)
-            return $this->db->insert($this->getTable(),$this->getAttributes());
+        if($this->isNew){
+            $insertResult = $this->db->insert($this->getTable(),$this->getAttributes());
+            $this->isNew = false;
+            $this->setPrimary($insertResult);
+            return $insertResult;
+        }
         $conditions = array();
         $primary = $this->getPrimary();
         foreach($primary as $key)
@@ -155,4 +159,11 @@ abstract class ActiveRecord implements IActiveRecord{
     {
         return in_array($attribute,$this->getRequiredFields());
     }
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    protected abstract function setPrimary($value);
 }
