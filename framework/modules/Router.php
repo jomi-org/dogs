@@ -66,33 +66,40 @@ class Router extends Module{
         return true;
     }
 
-/*    private function parseRoute($route)
+    public function getDefaultRoute()
     {
-        $controller = '';
-        $action = '';
-        if(isset($route['controller'])){
-            $controller = $route['controller'];
-            $afterController = $route['pattern'];
-            $uri = $this->uri;
-        } else {
-            $explodeByController = explode('<controller>', $route['pattern']);
-            $afterController = $explodeByController[1];
-            $beforeController = $explodeByController[0];
-            $uri = substr($this->uri, strlen($beforeController));
-        }
-        if(isset($route['action'])){
-            $action = $route['action'];
-            $afterAction
-        } else {
-            $explodeByAction = explode('<action>', $afterController);
-            $beforeAction = $explodeByAction[0];
-            $afterAction = $explodeByAction[1];
+        if(empty($this->_config['default']['route']))
+            throw new Exception("Default route is empty. Please set it in configs");
+        return $this->_config['default']['route'];
+    }
 
-            $uri = substr($uri,0,strlen($afterAction) * (-1));
-            $final = explode($beforeAction,$uri);
+    /*    private function parseRoute($route)
+        {
+            $controller = '';
+            $action = '';
+            if(isset($route['controller'])){
+                $controller = $route['controller'];
+                $afterController = $route['pattern'];
+                $uri = $this->uri;
+            } else {
+                $explodeByController = explode('<controller>', $route['pattern']);
+                $afterController = $explodeByController[1];
+                $beforeController = $explodeByController[0];
+                $uri = substr($this->uri, strlen($beforeController));
+            }
+            if(isset($route['action'])){
+                $action = $route['action'];
+                $afterAction
+            } else {
+                $explodeByAction = explode('<action>', $afterController);
+                $beforeAction = $explodeByAction[0];
+                $afterAction = $explodeByAction[1];
 
-        }
+                $uri = substr($uri,0,strlen($afterAction) * (-1));
+                $final = explode($beforeAction,$uri);
 
-        return true;
-    }*/
+            }
+
+            return true;
+        }*/
 }

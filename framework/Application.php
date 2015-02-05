@@ -12,6 +12,7 @@ use framework\modules\Db;
 use framework\modules\Request;
 use framework\modules\Response;
 use framework\modules\Router;
+use framework\modules\User;
 
 /**
  * Class Application
@@ -21,6 +22,7 @@ use framework\modules\Router;
  * @property Response $response
  * @property Request $request
  * @property Db $db
+ * @property User $user
  */
 class Application {
 
@@ -57,6 +59,7 @@ class Application {
 
     public function run()
     {
+        session_start();
         try{
             $result = $this->handleRequest();
             $this->response->perform($result);

@@ -49,10 +49,10 @@ class Profile extends ActiveRecord {
     /**
      * @return array ( $keyName )
      */
-    public function getPrimary()
+    public function getPrimaryKeys()
     {
         return array('user_id');
-        // TODO: Implement getPrimary() method.
+        // TODO: Implement getPrimaryKeys() method.
     }
 
     /**
@@ -60,7 +60,7 @@ class Profile extends ActiveRecord {
      */
     public function getTable()
     {
-        // TODO: Implement getTable() method.
+        return 'profile';
     }
 
     /**

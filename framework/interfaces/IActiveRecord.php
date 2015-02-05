@@ -51,7 +51,7 @@ interface IActiveRecord {
 
     public function getRequiredFields();
 
-    public function getPrimary();
+    public function getPrimaryKeys();
 
     public function getTable();
 }

@@ -65,7 +65,7 @@ abstract class ActiveRecord implements IActiveRecord{
     /**
      * @return array ( $keyName )
      */
-    public abstract function getPrimary();
+    public abstract function getPrimaryKeys();
 
     /**
      * @return array
@@ -87,30 +87,48 @@ abstract class ActiveRecord implements IActiveRecord{
             return $insertResult;
         }
         $conditions = array();
-        $primary = $this->getPrimary();
+        $primary = $this->getPrimaryKeys();
         foreach($primary as $key)
             $conditions[] = $this->db->pdo->quote($key).'='.$this->db->pdo->quote($this->$key);
         $conditions = join(', ',$conditions);
         return $this->db->update($this->getTable(), $this->getAttributes(),$conditions);
     }
 
+    /**
+     * @param string $conditions
+     *
+     * @return static;
+     * @throws Exception
+     */
     public function findOne($conditions)
     {
-        $sql = 'select * from {$this->getTable()} '. DbHelper::getConditions($conditions) . 'limit 1';
-        $row = $this->db->query($sql)->fetch(\PDO::FETCH_ASSOC);
+        $sql = "select * from {$this->getTable()} ". DbHelper::getConditions($conditions) . ' limit 1';
+        $row = $this->db->query($sql);
+        if(!$row){
+            throw new Exception('Something were wrong, result fail', static::EXCEPTION_NOT_VALID_ROW);
+        }
+        $row = $row->fetch(\PDO::FETCH_ASSOC);
         if(empty($row) || !is_array($row))
-            throw new Exception('Something were wrong', static::EXCEPTION_NOT_VALID_ROW);
+            throw new Exception('Something were wrong, fetch fail', static::EXCEPTION_NOT_VALID_ROW);
         foreach($row as $key => $value) {
             $this->$key = $value;
         }
         $this->isNew = false;
         return $this;
     }
+
+    /**
+     * @param string $column
+     * @param        $value
+     *
+     * @return static
+     * @throws Exception
+     */
     public function findOneBy($column,$value)
     {
-        $column = $this->db->pdo->quote($column);
+        $column = trim($this->db->pdo->quote($column),"'");
         $value = $this->db->pdo->quote($value);
-        $conditions = "where $column = $value";
+        $conditions = "$column = $value";
         return $this->findOne($conditions);
     }
 
@@ -147,6 +165,8 @@ abstract class ActiveRecord implements IActiveRecord{
         if(!empty($request->post[$attribute])) {
             return $request->post[$attribute];
         }
+        if(!empty($this->$attribute))
+            return $this->$attribute;
         throw new Exception("Can't find $attribute", Core::EXCEPTION_NOT_ERROR_CODE);
     }
 

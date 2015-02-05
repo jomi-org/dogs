@@ -58,4 +58,18 @@ class Controller {
     {
 
     }
+
+    /**
+     * @param $location
+     *
+     * @return bool
+     * @throws Exception
+     */
+    protected function redirect($location)
+    {
+        if(!is_string($location))
+            throw new Exception("Location must be a string",Core::EXCEPTION_ERROR_CODE);
+        header('Location: '.$location,true,301);
+        return true;
+    }
 }

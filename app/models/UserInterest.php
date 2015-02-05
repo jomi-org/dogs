@@ -47,7 +47,7 @@ class UserInterest extends ActiveRecord{
     /**
      * @return array ( $keyName )
      */
-    public function getPrimary()
+    public function getPrimaryKeys()
     {
         return $this->getRequiredFields();
     }

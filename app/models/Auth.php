@@ -31,7 +31,7 @@ class Auth extends ActiveRecord{
         return array(
             'id',
             'login',
-            'pass',
+            'password',
             'salt'
         );
     }
@@ -43,15 +43,14 @@ class Auth extends ActiveRecord{
     {
         return array(
             'login',
-            'pass',
-            'salt'
+            'password',
         );
     }
 
     /**
      * @return array ( $keyName )
      */
-    public function getPrimary()
+    public function getPrimaryKeys()
     {
         return array('id');
     }
@@ -66,6 +65,7 @@ class Auth extends ActiveRecord{
 
     public function cryptPassword()
     {
+        $this->salt = substr(md5(time()),5,4);
         $this->password = md5(md5($this->password).$this->salt);
     }
 
@@ -77,5 +77,11 @@ class Auth extends ActiveRecord{
     protected function setPrimary($value)
     {
         $this->id = $value;
+    }
+
+    public function checkPassword($password)
+    {
+        $cryptedPassword = md5(md5($password).$this->salt);
+        return $this->password === $cryptedPassword;
     }
 }

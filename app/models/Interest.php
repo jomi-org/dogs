@@ -40,7 +40,7 @@ class Interest extends ActiveRecord
     /**
      * @return array ( $keyName )
      */
-    public function getPrimary()
+    public function getPrimaryKeys()
     {
         return array('id');
     }

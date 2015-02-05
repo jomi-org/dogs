@@ -10,6 +10,7 @@ namespace app\controllers;
 
 
 use app\models\Auth;
+use app\models\Interest;
 use app\models\Profile;
 use app\models\User;
 use app\models\UserInterest;
@@ -31,13 +32,21 @@ class UserController extends Controller{
                 $auth->fillFromRequest();
                 $auth->cryptPassword();
                 $auth->save();
-                $profile->fillFromRequest();
                 $profile->user_id = $auth->id;
+                $profile->fillFromRequest();
                 $profile->save();
                 $userInterest = new UserInterest();
                 $userInterest->user_id = $auth->id;
-                $userInterest->fillFromRequest();
-                $userInterest->save();
+                $interestModel = new Interest();
+                if(!empty(Core::$app->request->post['interest'][0])){
+                    foreach(Core::$app->request->post['interest'] as $interest) {
+                        $interestId = $interestModel->findOneBy('name', $interest)->id;
+                        $userInterest->isNew = true;
+                        $userInterest->interest_id = $interestId;
+                        $userInterest->save();
+                    }
+                }
+
             } catch(Exception $e){
                 $message = $e->getMessage();
             }
@@ -45,4 +54,38 @@ class UserController extends Controller{
         Core::$app->request->post['msg'] = $message;
         return $this->render('user/signup',Core::$app->request->post);
     }
+
+    public function actionLogin()
+    {
+        if(empty(Core::$app->request->post['login']) and empty(Core::$app->request->post['password']))
+            return $this->render('user/login',array());
+        if(empty(Core::$app->request->post['password']))
+            return $this->render('user/login',array('msg' => 'Password is required'));
+        if(empty(Core::$app->request->post['login']))
+            return $this->render('user/login',array('msg' => 'Login is required'));
+        $auth = new Auth();
+        try{
+            $auth->findOneBy('login',Core::$app->request->post['login']);
+        } catch(Exception $e) {
+            return $this->render('user/login', array_merge(Core::$app->request->post,array('msg' => 'There is no '.Core::$app->request->post['login'].' user')));
+        }
+        if(!$auth->checkPassword(Core::$app->request->post['password']))
+            return $this->render('user/login', array_merge(Core::$app->request->post,array('msg' => 'Login or password is invalid')));
+        Core::$app->user->login($auth);
+        return $this->redirect(Core::$app->router->getDefaultRoute());
+    }
+
+    public function actionLogout()
+    {
+        Core::$app->user->logout();
+        return $this->redirect('user/login');
+    }
+
+    public function actionSearch()
+    {
+        //TODO: Implement Alone In City Checkbox
+        //TODO: Implement minimum interests count field
+        return $this->redirect('user/search');
+    }
+
 }

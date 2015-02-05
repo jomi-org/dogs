@@ -74,9 +74,9 @@ class MultiActiveRecord implements IActiveRecord{
         // TODO: Implement getRequiredFields() method.
     }
 
-    public function getPrimary()
+    public function getPrimaryKeys()
     {
-        // TODO: Implement getPrimary() method.
+        // TODO: Implement getPrimaryKeys() method.
     }
 
     public function getTable()

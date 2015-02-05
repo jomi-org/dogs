@@ -11,7 +11,8 @@ return array(
             'class' => \framework\modules\Router::class,
             'default' => array(
                 'controller' => 'user',
-                'action' => 'signUp'
+                'action' => 'signUp',
+                'route' => 'users/index'
             )
         ),
         'request' => array(
@@ -19,6 +20,15 @@ return array(
         ),
         'response' => array(
             'class' => \framework\modules\Response::class
+        ),
+        'db' => array(
+            'class' => \framework\modules\Db::class,
+            'dsn' => 'mysql:host=localhost;dbname=users',
+            'username' => 'users',
+            'password' => '1q2w3e'
+        ),
+        'user' => array(
+            'class' => \framework\modules\User::class,
         )
     ),
     'params' => array()

@@ -16,6 +16,8 @@ define('FRAMEWORK_DIR',__DIR__);
 class Core {
     const EXCEPTION_ERROR_CODE = 500;
     const EXCEPTION_NOT_ERROR_CODE = 1024;
+    const EXCEPTION_GETTER_FAIL = 1025;
+    const EXCEPTION_SETTER_FAIL = 1026;
 
     /** @var  Application */
     public static $app;
