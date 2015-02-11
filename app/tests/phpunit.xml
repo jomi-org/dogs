@@ -17,15 +17,12 @@
     </selenium>
 
     <php>
-        <env name="TEST_BASE_URL" value="http://users.local/index-test.php" />
+        <!--<env name="TEST_BASE_URL" value="http://users.local/index-test.php" />-->
     </php>
 
     <testsuites>
-        <testsuite name="framework">
-            <directory>../framework/tests/</directory>
-        </testsuite>
         <testsuite name="app">
-            <directory>../app/tests/</directory>
+            <directory>./unit/</directory>
         </testsuite>
 
     </testsuites>

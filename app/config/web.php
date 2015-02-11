@@ -8,7 +8,7 @@
 return array(
     'modules' => array(
         'router' => array(
-            'class' => \framework\modules\Router::class,
+            'class' => \jf\modules\Router::class,
             'default' => array(
                 'controller' => 'user',
                 'action' => 'signUp',
@@ -16,19 +16,19 @@ return array(
             )
         ),
         'request' => array(
-            'class' => \framework\modules\Request::class
+            'class' => \jf\modules\Request::class
         ),
         'response' => array(
-            'class' => \framework\modules\Response::class
+            'class' => \jf\modules\Response::class
         ),
         'db' => array(
-            'class' => \framework\modules\Db::class,
+            'class' => \jf\modules\Db::class,
             'dsn' => 'mysql:host=localhost;dbname=users',
             'username' => 'users',
             'password' => '1q2w3e'
         ),
         'user' => array(
-            'class' => \framework\modules\User::class,
+            'class' => \jf\modules\User::class,
         )
     ),
     'params' => array()

@@ -7,15 +7,15 @@
  */
 
 $_SERVER['REQUEST_URI'] = '/test/test/1';
+define('APPLICATION_DIR',dirname(__DIR__));
+require_once '../../vendor/autoload.php';
 
-require_once '../vendor/autoload.php';
-
-use framework\Application;
-use framework\Config;
+use jf\Application;
+use jf\Config;
 $documentRoot = dirname(__DIR__);
 $config = new Config(array_merge(
-    require $documentRoot . '/config/web.php',
-    require $documentRoot . '/config/test.php'
+    require APPLICATION_DIR . '/config/web.php',
+    require APPLICATION_DIR . '/config/test.php'
 ));
 
 $app = new Application($config);

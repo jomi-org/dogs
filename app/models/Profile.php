@@ -9,7 +9,7 @@
 namespace app\models;
 
 
-use framework\ActiveRecord;
+use jf\ActiveRecord;
 
 /**
  * Class Profile

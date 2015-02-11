@@ -9,7 +9,7 @@
 namespace app\models;
 
 
-use framework\MultiActiveRecord;
+use jf\MultiActiveRecord;
 
 class User extends MultiActiveRecord{
 

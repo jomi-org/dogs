@@ -7,9 +7,9 @@
  */
 
 namespace app\models;
-use framework\Core;
-use framework\Exception;
-use framework\traits\GetterAndSetterTrait;
+use jf\Core;
+use jf\Exception;
+use jf\traits\GetterAndSetterTrait;
 
 /**
  * Class Session

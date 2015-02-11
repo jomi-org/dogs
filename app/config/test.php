@@ -3,7 +3,7 @@
 return array(
     'modules' => array(
         'router' => array(
-            'class' => \framework\modules\Router::class,
+            'class' => \jf\modules\Router::class,
             'default' => array(
                 'controller' => 'test',
                 'action' => 'test'
@@ -15,7 +15,7 @@ return array(
             )
         ),
         'request' => array(
-            'class' => \framework\modules\Request::class
+            'class' => \jf\modules\Request::class
         )
     ),
     'params' => array(

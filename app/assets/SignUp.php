@@ -9,7 +9,7 @@
 namespace app\assets;
 
 
-use framework\Asset;
+use jf\Asset;
 
 class SignUp extends Asset{
 

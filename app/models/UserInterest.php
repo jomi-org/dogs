@@ -9,7 +9,7 @@
 namespace app\models;
 
 
-use framework\ActiveRecord;
+use jf\ActiveRecord;
 
 /**
  * @property mixed|null user_id

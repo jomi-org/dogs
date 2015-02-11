@@ -9,7 +9,9 @@
 namespace app\controllers;
 
 
-class InterestController {
+use jf\Controller;
+
+class InterestController extends Controller{
 
     public function actionList($page = 1,$pageSize = 20)
     {

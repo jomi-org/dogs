@@ -9,20 +9,20 @@
 return array(
     'modules' => array(
         'router' => array(
-            'class' => \framework\modules\Router::class,
+            'class' => \jf\modules\Router::class,
             'default' => array(
                 'controller' => 'user',
                 'action' => 'signUp'
             )
         ),
         'request' => array(
-            'class' => \framework\modules\ConsoleRequest::class
+            'class' => \jf\modules\ConsoleRequest::class
         ),
         'response' => array(
-            'class' => \framework\modules\Response::class
+            'class' => \jf\modules\Response::class
         ),
         'db' => array(
-            'class' => \framework\modules\Db::class,
+            'class' => \jf\modules\Db::class,
             'dsn' => 'mysql:host=localhost;dbname=users',
             'username' => 'users',
             'password' => '1q2w3e'

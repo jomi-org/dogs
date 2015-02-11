@@ -14,9 +14,9 @@ use app\models\Interest;
 use app\models\Profile;
 use app\models\User;
 use app\models\UserInterest;
-use framework\Controller;
-use framework\Core;
-use framework\Exception;
+use jf\Controller;
+use jf\Core;
+use jf\Exception;
 
 class UserController extends Controller{
 
@@ -40,7 +40,17 @@ class UserController extends Controller{
                 $interestModel = new Interest();
                 if(!empty(Core::$app->request->post['interest'][0])){
                     foreach(Core::$app->request->post['interest'] as $interest) {
-                        $interestId = $interestModel->findOneBy('name', $interest)->id;
+                        try{
+                            $interestId = $interestModel->findOneBy('name', $interest)->id;
+                        } catch(Exception $e) {
+                            if($e->getCode() == Interest::EXCEPTION_NOT_VALID_ROW) {
+                                $interestModel->isNew = true;
+                                $interestModel->id = NULL;
+                                $interestModel->name = $interest;
+                                $interestModel->save();
+                                $interestId = $interestModel->id;
+                            }
+                        }
                         $userInterest->isNew = true;
                         $userInterest->interest_id = $interestId;
                         $userInterest->save();

@@ -4,7 +4,7 @@
  * User: macseem
  * Date: 1/25/15
  * Time: 2:43 PM
- * @var \framework\View $this
+ * @var \jf\View $this
  * @var string $content
  */
 $this->registerAsset(\app\assets\Bootstrap::class);

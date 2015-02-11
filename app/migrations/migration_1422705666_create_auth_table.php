@@ -6,7 +6,7 @@
  * Time: 12:13 AM
  */
 
-use framework\Migration;
+use jf\Migration;
 
 class migration_1422705666_create_auth_table extends Migration
 {

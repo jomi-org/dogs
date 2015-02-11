@@ -6,13 +6,14 @@
  * Time: 11:20 PM
  */
 global $argv;
+define('APPLICATION_DIR',__DIR__);
 $documentRoot = dirname(__DIR__);
 require_once $documentRoot.'/vendor/autoload.php';
-use framework\Config;
-use framework\ConsoleApplication;
+use jf\Config;
+use jf\ConsoleApplication;
 
 $_config = array_merge_recursive(
-    require $documentRoot . '/config/cli.php',
+    require $documentRoot. '/app/config/cli.php',
     array('modules' => array( 'request' => array( 'argv' => $argv)))
 ) ;
 $config = new Config($_config);

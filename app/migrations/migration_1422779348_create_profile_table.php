@@ -1,6 +1,6 @@
 <?php
 
-use framework\Migration;
+use jf\Migration;
 
 class migration_1422779348_create_profile_table extends Migration
 {

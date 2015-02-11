@@ -1,6 +1,6 @@
 <?php
 
-use framework\Migration;
+use jf\Migration;
 
 class migration_1422806987_create_interest_table extends Migration
 {

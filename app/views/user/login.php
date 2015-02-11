@@ -5,7 +5,7 @@
  * Date: 2/5/15
  * Time: 1:12 AM
  *
- * @var \framework\View $this
+ * @var \jf\View $this
  * @var string $login
  * @var string $password
  * @var string $email
@@ -14,7 +14,7 @@
  * @var string $about
  */
 
-use framework\helpers\ActiveForm;
+use jf\helpers\ActiveForm;
 //$this->registerAsset(\app\assets\SignUp::class);
 ?>
 

@@ -9,7 +9,7 @@
 namespace app\commands;
 
 
-use framework\Controller;
+use jf\Controller;
 
 class HelloWorldCommand extends Controller{
 
