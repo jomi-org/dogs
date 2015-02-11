@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jomi-org/framework.git",
-                "reference": "3ac844c9a7751493fe79aedbad4d6f780c7d47c6"
+                "reference": "85506d498d39bcfdabbae6739afdfd4a364b87ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jomi-org/framework/zipball/3ac844c9a7751493fe79aedbad4d6f780c7d47c6",
-                "reference": "3ac844c9a7751493fe79aedbad4d6f780c7d47c6",
+                "url": "https://api.github.com/repos/jomi-org/framework/zipball/85506d498d39bcfdabbae6739afdfd4a364b87ed",
+                "reference": "85506d498d39bcfdabbae6739afdfd4a364b87ed",
                 "shasum": ""
             },
             "require-dev": {
@@ -50,7 +50,7 @@
                 "framework",
                 "jomi"
             ],
-            "time": "2015-02-11 22:31:58"
+            "time": "2015-02-11 23:41:24"
         }
     ],
     "packages-dev": [

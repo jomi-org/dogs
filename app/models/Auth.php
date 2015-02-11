@@ -10,6 +10,7 @@ namespace app\models;
 
 
 use jf\ActiveRecord;
+use jf\interfaces\IUserEntity;
 
 /**
  * Class Auth
@@ -19,7 +20,7 @@ use jf\ActiveRecord;
  * @property string $salt
  * @package app\models
  */
-class Auth extends ActiveRecord{
+class Auth extends ActiveRecord implements IUserEntity{
 
     protected $table = 'auth';
 
@@ -83,5 +84,15 @@ class Auth extends ActiveRecord{
     {
         $cryptedPassword = md5(md5($password).$this->salt);
         return $this->password === $cryptedPassword;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getLogin()
+    {
+        return $this->login;
     }
 }
