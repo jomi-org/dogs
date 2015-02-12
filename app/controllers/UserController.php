@@ -25,6 +25,15 @@ class UserController extends Controller{
     public function actionSignUp()
     {
         $message = '';
+        $defaultData = array(
+            'login' => '',
+            'password' => '',
+            'email' => '',
+            'name' => '',
+            'city' => '',
+            'about' => '',
+        );
+        $data = array_merge($defaultData, Core::$app->request->post);
         if(!empty(Core::$app->request->post)){
             $auth = new Auth();
             $profile = new Profile();
@@ -62,25 +71,26 @@ class UserController extends Controller{
             }
         }
         Core::$app->request->post['msg'] = $message;
-        return $this->render('user/signup',Core::$app->request->post);
+        return $this->render('user/signup',$data);
     }
 
     public function actionLogin()
     {
+        $data = array_merge(array('login' => '', 'password' => ''), Core::$app->request->post);
         if(empty(Core::$app->request->post['login']) and empty(Core::$app->request->post['password']))
-            return $this->render('user/login',array());
+            return $this->render('user/login', $data);
         if(empty(Core::$app->request->post['password']))
-            return $this->render('user/login',array('msg' => 'Password is required'));
+            return $this->render('user/login', array_merge($data, array('msg' => 'Password is required')));
         if(empty(Core::$app->request->post['login']))
-            return $this->render('user/login',array('msg' => 'Login is required'));
+            return $this->render('user/login', array_merge($data, array('msg' => 'Login is required')));
         $auth = new Auth();
         try{
             $auth->findOneBy('login',Core::$app->request->post['login']);
         } catch(Exception $e) {
-            return $this->render('user/login', array_merge(Core::$app->request->post,array('msg' => 'There is no '.Core::$app->request->post['login'].' user')));
+            return $this->render('user/login', array_merge($data, array('msg' => 'There is no '.Core::$app->request->post['login'].' user')));
         }
         if(!$auth->checkPassword(Core::$app->request->post['password']))
-            return $this->render('user/login', array_merge(Core::$app->request->post,array('msg' => 'Login or password is invalid')));
+            return $this->render('user/login', array_merge($data, array('msg' => 'Login or password is invalid')));
         Core::$app->user->login($auth);
         return $this->redirect(Core::$app->router->getDefaultRoute());
     }

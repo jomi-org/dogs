@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "478b001c4b7fc706695b5a1164f2fe4f",
+    "hash": "4e6a3460dd08b98546b9a98f1fa4a06c",
     "packages": [
         {
             "name": "jomi/framework",
-            "version": "dev-master",
+            "version": "0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jomi-org/framework.git",
-                "reference": "85506d498d39bcfdabbae6739afdfd4a364b87ed"
+                "reference": "7f7f3459089c3c6f07e9c6df35258cbdaebe8a67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jomi-org/framework/zipball/85506d498d39bcfdabbae6739afdfd4a364b87ed",
-                "reference": "85506d498d39bcfdabbae6739afdfd4a364b87ed",
+                "url": "https://api.github.com/repos/jomi-org/framework/zipball/7f7f3459089c3c6f07e9c6df35258cbdaebe8a67",
+                "reference": "7f7f3459089c3c6f07e9c6df35258cbdaebe8a67",
                 "shasum": ""
             },
             "require-dev": {
@@ -50,7 +50,7 @@
                 "framework",
                 "jomi"
             ],
-            "time": "2015-02-11 23:41:24"
+            "time": "2015-02-12 00:18:18"
         }
     ],
     "packages-dev": [
@@ -1065,9 +1065,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "jomi/framework": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

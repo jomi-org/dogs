@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../vendor/autoload.php';
-
+define('APPLICATION_DIR',dirname(__DIR__));
 use jf\Application;
 use jf\Config;
 $documentRoot = dirname(__DIR__);
