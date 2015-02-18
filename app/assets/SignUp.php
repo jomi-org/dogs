@@ -13,7 +13,11 @@ use jf\Asset;
 
 class SignUp extends Asset{
 
-    public $css = array(
+    public $css = [
         '/css/signup.css'
-    );
+    ];
+
+    public $js = [
+        '/js/signup.js'
+    ];
 }

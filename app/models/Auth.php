@@ -11,6 +11,7 @@ namespace app\models;
 
 use jf\ActiveRecord;
 use jf\interfaces\IUserEntity;
+use jf\traits\GetterAndSetterTrait;
 
 /**
  * Class Auth
@@ -88,11 +89,11 @@ class Auth extends ActiveRecord implements IUserEntity{
 
     public function getId()
     {
-        return $this->id;
+        return $this->attributes['id'];
     }
 
     public function getLogin()
     {
-        return $this->login;
+        return $this->attributes['login'];
     }
 }

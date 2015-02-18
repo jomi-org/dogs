@@ -65,7 +65,7 @@ class UserController extends Controller{
                         $userInterest->save();
                     }
                 }
-
+                $this->redirect(Core::$app->router->getDefaultRoute());
             } catch(Exception $e){
                 $message = $e->getMessage();
             }
@@ -91,21 +91,21 @@ class UserController extends Controller{
         }
         if(!$auth->checkPassword(Core::$app->request->post['password']))
             return $this->render('user/login', array_merge($data, array('msg' => 'Login or password is invalid')));
-        Core::$app->user->login($auth);
+        Core::$app->user->signIn($auth);
         return $this->redirect(Core::$app->router->getDefaultRoute());
     }
 
     public function actionLogout()
     {
         Core::$app->user->logout();
-        return $this->redirect('user/login');
+        return $this->redirect('/user/login');
     }
 
     public function actionSearch()
     {
         //TODO: Implement Alone In City Checkbox
         //TODO: Implement minimum interests count field
-        return $this->redirect('user/search');
+        return $this->render('user/search');
     }
 
 }

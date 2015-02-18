@@ -10,10 +10,15 @@ return array(
         'router' => array(
             'class' => \jf\modules\Router::class,
             'default' => array(
-                'controller' => 'user',
-                'action' => 'signUp',
-                'route' => 'users/index'
-            )
+                'controller' => 'site',
+                'action' => 'home',
+                'route' => '/site/home'
+            ),
+            'breeds' => [
+                'default' => [
+                    'action' => 'catalog'
+                ]
+            ]
         ),
         'request' => array(
             'class' => \jf\modules\Request::class
@@ -29,7 +34,10 @@ return array(
         ),
         'user' => array(
             'class' => \jf\modules\User::class,
-        )
+        ),
+        'session' => [
+            'class' => \jf\modules\Session::class,
+        ]
     ),
     'params' => array()
 );

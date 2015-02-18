@@ -61,6 +61,23 @@ $this->registerAsset(\app\assets\SignUp::class);
                 <?php echo ActiveForm::textArea('about',$about,'form-control', 'about');?>
             </div>
         </div>
+        <div class="form-group text-left">
+<label for="interests-ul" class="col-lg-3 control-label">
+            Interests</label>
+            <div class="btn btn-default col-sm-2" id="interests-add-button" onclick="
+            var ul = document.getElementById('interests-ul');
+            ul.innerHTML = ul.innerHTML + '<li class=\'list-group-item\'><input type=\'text\' class=\'form-control\' name=\'interest[]\' /></li>';
+            ">+</div>
+
+        </div>
+        <div class="form-group">
+
+            <div class="col-sm-10">
+                <ul class="list-group" id="interests-ul">
+                    <li class="list-group-item"><input type="text" name="interest[]" class='form-control' /></li>
+                </ul>
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-sm-10">
                 <?php echo ActiveForm::button('submit','submit','Submit','btn btn-default');?>
