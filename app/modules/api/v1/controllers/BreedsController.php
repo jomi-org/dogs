@@ -6,15 +6,19 @@
  * Time: 12:16 AM
  */
 
-namespace app\controllers;
+namespace app\modules\api\v1\controllers;
 
 
-use jf\controllers\ControlledController as Controller;
+use jf\Controller as Controller;
 
 class BreedsController extends Controller {
 
     public $layout = 'main';
 
+    public function actionIndex()
+    {
+        echo 123;exit;
+    }
     public function actionCatalog()
     {
         return $this->render('breeds/catalog');

@@ -12,11 +12,37 @@ return array(
             'default' => array(
                 'controller' => 'site',
                 'action' => 'home',
-                'route' => '/site/home'
+                'route' => '/site/home',
+                'controller-action' => [
+                    'breeds' => 'catalog'
+                ]
             ),
-            'breeds' => [
-                'default' => [
-                    'action' => 'catalog'
+
+            'routes' => [
+                '/\/(.+?)\/(.+?)\/(.+)/' => [
+                    'matches' => [
+                        '1' => 'module',
+                        '2' => 'controller',
+                        '3' => 'action'
+                    ]
+                ],
+                '/\/(.+?)\/(.+)/' => [
+
+                    'matches' => [
+                        '1' => 'controller',
+                        '2' => 'action'
+                    ],
+                    'default' => [
+                        'action' => 'index'
+                    ]
+                ],
+                '/\//' => [
+                    'params' => [],
+                    'matches' => [],
+                    'default' => [
+                        'controller' => 'user',
+                        'action' => 'sign-up',
+                    ]
                 ]
             ]
         ),
@@ -37,6 +63,20 @@ return array(
         ),
         'session' => [
             'class' => \jf\modules\Session::class,
+        ],
+        'apiv1' => [
+            'controllerNamespace' => '\\app\\modules\\api\\v1\\controllers\\'
+        ],
+        'control' => [
+            'class' => \jf\modules\Control::class,
+        ],
+        'controlStorage' => [
+            'class' => \jf\modules\ConfigControlStorage::class,
+            'permissions' => [
+                '\\breeds' => [
+                    '*' => [ 'catalog'=>true ],
+                ]
+            ]
         ]
     ),
     'params' => array()
