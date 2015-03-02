@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4e6a3460dd08b98546b9a98f1fa4a06c",
+    "hash": "07ae91e1f747d9b0b2406008be65ca0b",
     "packages": [
         {
             "name": "jomi/framework",
-            "version": "0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jomi-org/framework.git",
-                "reference": "7f7f3459089c3c6f07e9c6df35258cbdaebe8a67"
+                "reference": "65a1e5c545f5e7efa73befa062353ab40c44c9fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jomi-org/framework/zipball/7f7f3459089c3c6f07e9c6df35258cbdaebe8a67",
-                "reference": "7f7f3459089c3c6f07e9c6df35258cbdaebe8a67",
+                "url": "https://api.github.com/repos/jomi-org/framework/zipball/65a1e5c545f5e7efa73befa062353ab40c44c9fd",
+                "reference": "65a1e5c545f5e7efa73befa062353ab40c44c9fd",
                 "shasum": ""
             },
             "require-dev": {
@@ -50,7 +50,7 @@
                 "framework",
                 "jomi"
             ],
-            "time": "2015-02-12 00:18:18"
+            "time": "2015-02-21 00:03:31"
         }
     ],
     "packages-dev": [

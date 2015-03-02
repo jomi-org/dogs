@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "jomi/framework":"0.2"
+    "jomi/framework":">=0.2"
   },
   "require-dev": {
     "phpunit/phpunit":"4.4.*",

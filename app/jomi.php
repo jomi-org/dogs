@@ -13,12 +13,7 @@ use jf\Config;
 use jf\ConsoleApplication;
 use jf\Core;
 
-$_config = array_merge(
-    require $documentRoot . '/config/cli.php',
-    array('modules' => array( 'request' => array(
-        'class' => \jf\modules\ConsoleRequest::class,
-        'argv' => $argv))
-));
+$_config = require APPLICATION_DIR . '/config/cli.php';
 $config = new Config($_config);
 $app = new ConsoleApplication($config);
 $app->run();

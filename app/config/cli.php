@@ -7,16 +7,34 @@
  */
 
 return array(
+    'controllerNamespace' => 'app\\commands\\',
     'modules' => array(
         'router' => array(
             'class' => \jf\modules\Router::class,
             'default' => array(
                 'controller' => 'user',
                 'action' => 'signUp'
-            )
+            ),
+            'routes' => [
+                '/(.+?)\/(.+)$/' => [
+                    'matches' => [
+                        '1' => 'controller',
+                        '2' => 'action'
+                    ]
+                ],
+                '!(.+)!' => [
+                    'matches' => [
+                        '1' => 'controller',
+                    ],
+                    'default' => [
+                        'action' => 'index'
+                    ]
+                ]
+            ],
         ),
         'request' => array(
-            'class' => \jf\modules\ConsoleRequest::class
+            'class' => \jf\modules\ConsoleRequest::class,
+            'argv' => $argv,
         ),
         'response' => array(
             'class' => \jf\modules\Response::class

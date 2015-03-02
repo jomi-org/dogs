@@ -14,7 +14,7 @@ return array(
                 'action' => 'home',
                 'route' => '/site/home',
                 'controller-action' => [
-                    'breeds' => 'catalog'
+                    'breed' => 'catalog'
                 ]
             ),
 
@@ -73,8 +73,8 @@ return array(
         'controlStorage' => [
             'class' => \jf\modules\ConfigControlStorage::class,
             'permissions' => [
-                '\\breeds' => [
-                    '*' => [ 'catalog'=>true ],
+                '\\breed' => [
+                    '*' => [ 'catalog'=>true, 'edit' => false, 'view' => true, 'create' => true ],
                 ]
             ]
         ]

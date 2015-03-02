@@ -21,7 +21,7 @@ $this->registerAsset(\app\assets\Bootstrap::class);
     <?php
     $items = [
         '<ul class="nav navbar-nav">
-                    <li class=""><a href="/breeds">Breeds</a></li>
+                    <li class=""><a href="/breed">Breed</a></li>
                     <li class=""><a href="/contact">Contacts</a></li>
                     <li class=""><a href="/about">About Us</a></li>
                 </ul>',
